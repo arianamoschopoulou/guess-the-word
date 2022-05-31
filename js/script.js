@@ -7,8 +7,23 @@ const numberOfRemainingGuesses = document.getElementById("guesses-left");
 const messages = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
-const word = "magnolia";
+let word = "magnolia";
 const guessedLetters = [];
+let remainingGuessesNumber = 8;
+
+const getWord = async function () {
+    const request = await fetch ("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    const words = await request.text();
+    //console.log(words);
+    const wordArray = words.split("\n");
+    //console.log(wordArray);
+    const randomIndex = Math.floor(Math.random() * wordArray.length);
+    word = wordArray[randomIndex].trim();
+    symbols(word);
+    
+};
+
+getWord();
 
 const symbols = function(word) {
     const placeholderLetters = [];
@@ -53,6 +68,7 @@ const makeGuess = function (guess) {
     } else {
         guessedLetters.push(guess);
         console.log(guessedLetters);
+        remainingGuessesCount(guess);
         showGuessedLetters();
         correctLetters(guessedLetters);
     }
@@ -83,10 +99,30 @@ wordInProgress.innerText= revealWord.join("");
 checkForCorrectWord();
 };
 
+const remainingGuessesCount = function (guess) {
+    const upperWord = word.toUpperCase();
+    if (!upperWord.includes(guess)) {
+        messages.innerText = "Try again";
+        remainingGuessesNumber -= 1;
+    } else {
+        messages.innerText = "Well Done!";
+    }
+
+    if (remainingGuessesNumber === 0) {
+        messages.innerText = `Sorry, game over, the word was ${word}`;
+    } else if (remainingGuessesNumber === 1) {
+        numberOfRemainingGuesses.innerText = `${remainingGuessesNumber} guess`;
+    } else {
+        numberOfRemainingGuesses.innerText = `${remainingGuessesNumber} guesses`;
+    }
+
+};
+
 const checkForCorrectWord = function() {
     if (word.toUpperCase() === wordInProgress.innerText) {
-        messages.classList.add(".win")
+        messages.classList.add("win")
         messages.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
     } 
 
 };
+
