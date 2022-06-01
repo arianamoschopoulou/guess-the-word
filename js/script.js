@@ -130,9 +130,11 @@ const checkForCorrectWord = function() {
 
 const startOver = function () {
         guessButton.classList.add("hide");
-        numberOfRemainingGuesses.classList.add("hide");
+       // numberOfRemainingGuesses.classList.add("hide");
         remainingGuesses.classList.add("hide");
         playAgainButton.classList.remove("hide");
+        guessedLettersList.classList.add("hide");
+
     };
 
 playAgainButton.addEventListener("click", function() {
@@ -144,9 +146,9 @@ playAgainButton.addEventListener("click", function() {
     messages.innerText = "";
     getWord();
 
-    guessedLettersList.classList.remove("hide");
-    remainingGuesses.classList.remove("hide");
     guessButton.classList.remove("hide");
     playAgainButton.classList.add("hide");
+    remainingGuesses.classList.remove("hide");
+    guessedLettersList.classList.remove("hide");
 
 });
