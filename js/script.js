@@ -8,15 +8,15 @@ const messages = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
 let word = "magnolia";
-const guessedLetters = [];
+let guessedLetters = [];
 let remainingGuessesNumber = 3;
 
 const getWord = async function () {
     const request = await fetch ("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
     const words = await request.text();
-    //console.log(words);
+    console.log(words);
     const wordArray = words.split("\n");
-    //console.log(wordArray);
+    console.log(wordArray);
     const randomIndex = Math.floor(Math.random() * wordArray.length);
     word = wordArray[randomIndex].trim();
     symbols(word);
@@ -28,7 +28,7 @@ getWord();
 const symbols = function(word) {
     const placeholderLetters = [];
     for (let letters of word) {
-       // console.log(letters);
+       console.log(letters);
        placeholderLetters.push("●");
    }
    wordInProgress.innerText = placeholderLetters.join("");
@@ -94,7 +94,7 @@ const correctLetters = function (guessedLetters){
             revealWord.push("●");
         }
     }
-//console.log(revealWord);
+console.log(revealWord);
 wordInProgress.innerText= revealWord.join("");
 checkForCorrectWord();
 };
@@ -121,7 +121,7 @@ const remainingGuessesCount = function (guess) {
 
 const checkForCorrectWord = function() {
     if (word.toUpperCase() === wordInProgress.innerText) {
-        messages.classList.add("win")
+        messages.classList.add("win");
         messages.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
         startOver();
     } 
@@ -138,7 +138,7 @@ const startOver = function () {
 playAgainButton.addEventListener("click", function() {
     messages.classList.remove("win");
     guessedLetters =[];
-    remainingGuessesNumber = 1;
+    remainingGuessesNumber = 3;
     numberOfRemainingGuesses.innerText = `${remainingGuessesNumber} guesses`;
     guessedLettersList.innerHTML= "";
     messages.innerText = "";
