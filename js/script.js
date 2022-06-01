@@ -9,7 +9,7 @@ const playAgainButton = document.querySelector(".play-again");
 
 let word = "magnolia";
 const guessedLetters = [];
-let remainingGuessesNumber = 1;
+let remainingGuessesNumber = 3;
 
 const getWord = async function () {
     const request = await fetch ("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
